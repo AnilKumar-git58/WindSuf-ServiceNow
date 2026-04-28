@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="5a973af4472c4b10e454a3bf016d43cc" label="git_windsurf" max_length="40" name="x_2025153_windsu_0_git_windsurf" type="collection">
-        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element display="true" label="Index" max_length="40" name="index" type="string"/>
+        <element attributes="edge_encryption_enabled=true,ignore_filter_on_new=true,ts_weight=50" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" default="javascript:getNextObjNumberPadded();" dynamic_default_value="fdcb83a85f220100a9ad2572f2b4773c" label="Number" max_length="40" name="number" type="string" use_dynamic_default="true"/>
+        <element default="open" label="State" max_length="40" name="state" type="choice">
+            <choice/>
+        </element>
         <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
         <element label="description" max_length="80" name="description" type="string"/>
         <index name="index">

@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="b1d536b0472c4b10e454a3bf016d4373" extends="task" label="windsurf" max_length="40" name="x_2025153_windsu_0_windsurf" type="collection"/>
+    <element db_object_id="b1d536b0472c4b10e454a3bf016d4373" extends="task" label="windsurf" max_length="40" name="x_2025153_windsu_0_windsurf" type="collection">
+        <element label="Script" max_length="4000" name="script" type="script"/>
+        <element attributes="edge_encryption_enabled=true" label="Question" max_length="1000" name="question" type="string"/>
+    </element>
 </database>

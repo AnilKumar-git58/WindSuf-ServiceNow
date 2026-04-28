@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_application">
+    <sys_app_application action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category display_value="Custom Applications">e0355b31ef303000a61d5a3615c0fb78</category>
+        <description/>
+        <device_type>browser</device_type>
+        <hint/>
+        <name/>
+        <order>100</order>
+        <roles/>
+        <sys_class_name>sys_app_application</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-04-28 06:56:27</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>fbcfff4d47600310e454a3bf016d43be</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GitHub Windsuf</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="windsur_servicenow" source="x_2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="windsur_servicenow">743b667c47a84b10e454a3bf016d43ff</sys_scope>
+        <sys_update_name>sys_app_application_fbcfff4d47600310e454a3bf016d43be</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-04-28 06:56:27</sys_updated_on>
+        <title>GitHub Windsuf</title>
+        <view_name/>
+    </sys_app_application>
+</record_update>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="number" table="x_2025153_windsu_0_git_windsurf">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="index" table="x_2025153_windsu_0_git_windsurf">
         <active>true</active>
         <array>false</array>
-        <attributes>edge_encryption_enabled=true,ignore_filter_on_new=true,ts_weight=50</attributes>
+        <attributes/>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
 
@@ -13,20 +13,20 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>Number</column_label>
+        <column_label>Index</column_label>
         <comments/>
         <create_roles/>
-        <default_value>javascript:getNextObjNumberPadded();</default_value>
+        <default_value/>
         <defaultsort/>
         <delete_roles/>
         <dependent/>
         <dependent_on_field/>
-        <display>false</display>
+        <display>true</display>
         <dynamic_creation>false</dynamic_creation>
         <dynamic_creation_script/>
-        <dynamic_default_value display_value="Get Next Padded Number">fdcb83a85f220100a9ad2572f2b4773c</dynamic_default_value>
+        <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>number</element>
+        <element>index</element>
         <element_reference>false</element_reference>
         <foreign_database/>
         <formula/>
@@ -51,19 +51,19 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-04-27 07:01:22</sys_created_on>
-        <sys_name>Number</sys_name>
+        <sys_created_on>2026-04-28 06:52:55</sys_created_on>
+        <sys_name>Index</sys_name>
         <sys_package display_value="windsur_servicenow" source="x_2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_package>
         <sys_policy/>
         <sys_scope display_value="windsur_servicenow">743b667c47a84b10e454a3bf016d43ff</sys_scope>
-        <sys_update_name>sys_dictionary_x_2025153_windsu_0_git_windsurf_number</sys_update_name>
+        <sys_update_name>sys_dictionary_x_2025153_windsu_0_git_windsurf_index</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-04-28 06:52:56</sys_updated_on>
+        <sys_updated_on>2026-04-28 06:52:55</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
         <use_dependent_field>false</use_dependent_field>
-        <use_dynamic_default>true</use_dynamic_default>
+        <use_dynamic_default>false</use_dynamic_default>
         <use_reference_qualifier>simple</use_reference_qualifier>
         <virtual>false</virtual>
         <virtual_type>script</virtual_type>
