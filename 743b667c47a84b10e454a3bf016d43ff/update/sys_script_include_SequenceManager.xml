@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <api_name>x_2025153_windsu_0.SequenceManager</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Manages sequence numbers for tables with auto-increment functionality</description>
+        <name>SequenceManager</name>
+        <script><![CDATA[var SequenceManager = Class.create();
+SequenceManager.prototype = {
+    initialize: function() {
+    },
+
+    /**
+     * Get the next sequence number for a table
+     * @param {String} tableName - Name of the table
+     * @param {String} numberField - Name of the number field
+     * @return {Number} Next sequence number
+     */
+    getNextSequence: function(tableName, numberField) {
+        var gr = new GlideRecord(tableName);
+        gr.orderByDesc(numberField);
+        gr.setLimit(1);
+        gr.query();
+        
+        if (gr.next()) {
+            return parseInt(gr.getValue(numberField)) + 1;
+        } else {
+            return 1;
+        }
+    },
+
+    /**
+     * Reorder sequence numbers when a record is updated
+     * @param {String} tableName - Name of the table
+     * @param {String} numberField - Name of the number field
+     * @param {String} sysId - System ID of the updated record
+     * @param {Number} newNumber - New number value
+     * @param {Number} oldNumber - Old number value
+     */
+    reorderOnUpdate: function(tableName, numberField, sysId, newNumber, oldNumber) {
+        if (newNumber === oldNumber) {
+            return; // No change needed
+        }
+
+        // Get all records ordered by number
+        var gr = new GlideRecord(tableName);
+        gr.addQuery('sys_id', '!=', sysId);
+        gr.orderBy(numberField);
+        gr.query();
+
+        var records = [];
+        while (gr.next()) {
+            records.push({
+                sysId: gr.getValue('sys_id'),
+                number: parseInt(gr.getValue(numberField))
+            });
+        }
+
+        // Insert the updated record in the correct position
+        var updatedRecord = { sysId: sysId, number: newNumber };
+        records.push(updatedRecord);
+        
+        // Sort by number
+        records.sort(function(a, b) {
+            return a.number - b.number;
+        });
+
+        // Reassign sequence numbers starting from 1
+        for (var i = 0; i < records.length; i++) {
+            var targetNumber = i + 1;
+            if (records[i].number !== targetNumber) {
+                var updateGr = new GlideRecord(tableName);
+                if (updateGr.get(records[i].sysId)) {
+                    updateGr.setValue(numberField, targetNumber);
+                    updateGr.setWorkflow(false); // Prevent recursive business rules
+                    updateGr.update();
+                }
+            }
+        }
+    },
+
+    /**
+     * Reorder sequence numbers when a record is deleted
+     * @param {String} tableName - Name of the table
+     * @param {String} numberField - Name of the number field
+     * @param {Number} deletedNumber - Number of the deleted record
+     */
+    reorderOnDelete: function(tableName, numberField, deletedNumber) {
+        // Get all records with numbers greater than the deleted number
+        var gr = new GlideRecord(tableName);
+        gr.addQuery(numberField, '>', deletedNumber);
+        gr.orderBy(numberField);
+        gr.query();
+
+        while (gr.next()) {
+            var currentNumber = parseInt(gr.getValue(numberField));
+            var newNumber = currentNumber - 1;
+            
+            if (currentNumber > deletedNumber) {
+                gr.setValue(numberField, newNumber);
+                gr.setWorkflow(false); // Prevent recursive business rules
+                gr.update();
+            }
+        }
+    },
+
+    type: 'SequenceManager'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-04-28 08:00:00</sys_created_on>
+        <sys_id>sequence_manager_id</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SequenceManager</sys_name>
+        <sys_package display_value="windsur_servicenow" source="x_2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="windsur_servicenow">743b667c47a84b10e454a3bf016d43ff</sys_scope>
+        <sys_update_name>sys_script_include_SequenceManager</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-04-28 08:00:00</sys_updated_on>
+    </sys_script_include>
+</record_update>

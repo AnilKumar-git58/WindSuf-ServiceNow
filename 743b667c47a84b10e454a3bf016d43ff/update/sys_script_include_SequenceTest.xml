@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <api_name>x_2025153_windsu_0.SequenceTest</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Test script for sequence management functionality</description>
+        <name>SequenceTest</name>
+        <script><![CDATA[var SequenceTest = Class.create();
+SequenceTest.prototype = {
+    initialize: function() {
+    },
+
+    /**
+     * Test the complete sequence management scenario
+     */
+    runTest: function() {
+        var tableName = 'x_2025153_windsu_0_git_windsurf';
+        var numberField = 'number';
+        
+        gs.log('=== Sequence Management Test Started ===');
+        
+        // Step 1: Create initial records (1, 2, 3, 4, 5, 6)
+        this.createTestRecords(tableName, numberField, 6);
+        
+        // Step 2: Create new record (should auto-increment to 7)
+        this.createTestRecord(tableName, numberField, 'Test record 7');
+        
+        // Step 3: Update record 7 to have number 2
+        this.updateRecordNumber(tableName, 7, 2);
+        
+        // Step 4: Delete a record and verify sequence adjustment
+        this.deleteRecord(tableName, 4);
+        
+        gs.log('=== Sequence Management Test Completed ===');
+    },
+
+    /**
+     * Create multiple test records
+     */
+    createTestRecords: function(tableName, numberField, count) {
+        for (var i = 1; i <= count; i++) {
+            var gr = new GlideRecord(tableName);
+            gr.initialize();
+            gr.setValue('description', 'Test record ' + i);
+            gr.setValue(numberField, i);
+            gr.insert();
+            gs.log('Created record with number: ' + i);
+        }
+    },
+
+    /**
+     * Create a single test record (auto-increment)
+     */
+    createTestRecord: function(tableName, numberField, description) {
+        var gr = new GlideRecord(tableName);
+        gr.initialize();
+        gr.setValue('description', description);
+        // Don't set number - let auto-increment handle it
+        gr.insert();
+        gs.log('Created record with auto-incremented number: ' + gr.getValue(numberField));
+    },
+
+    /**
+     * Update a record's number
+     */
+    updateRecordNumber: function(tableName, oldNumber, newNumber) {
+        var gr = new GlideRecord(tableName);
+        gr.addQuery(numberField, oldNumber);
+        gr.query();
+        
+        if (gr.next()) {
+            gr.setValue(numberField, newNumber);
+            gr.update();
+            gs.log('Updated record number from ' + oldNumber + ' to ' + newNumber);
+        }
+    },
+
+    /**
+     * Delete a record by number
+     */
+    deleteRecord: function(tableName, number) {
+        var gr = new GlideRecord(tableName);
+        gr.addQuery(numberField, number);
+        gr.query();
+        
+        if (gr.next()) {
+            gr.deleteRecord();
+            gs.log('Deleted record with number: ' + number);
+        }
+    },
+
+    /**
+     * Display current sequence
+     */
+    displaySequence: function(tableName, numberField) {
+        var gr = new GlideRecord(tableName);
+        gr.orderBy(numberField);
+        gr.query();
+        
+        gs.log('Current sequence:');
+        while (gr.next()) {
+            gs.log('Number: ' + gr.getValue(numberField) + ', Description: ' + gr.getValue('description'));
+        }
+    },
+
+    type: 'SequenceTest'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-04-28 08:20:00</sys_created_on>
+        <sys_id>sequence_test_id</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SequenceTest</sys_name>
+        <sys_package display_value="windsur_servicenow" source="x_2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="windsur_servicenow">743b2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_scope>
+        <sys_update_name>sys_script_include_SequenceTest</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-04-28 08:20:00</sys_updated_on>
+    </sys_script_include>
+</record_update>

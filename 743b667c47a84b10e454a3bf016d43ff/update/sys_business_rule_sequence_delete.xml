@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_business_rule action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>true</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_2025153_windsu_0_git_windsurf</collection>
+        <condition/>
+        <description>Adjust sequence numbers when a record is deleted to fill gaps</description>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Sequence Adjustment on Delete</name>
+        <order>300</order>
+        <priority>100</priority>
+        <query_condition/>
+        <run_when>before</run_when>
+        <script><![CDATA[// Reorder sequence numbers on delete
+(function executeRule(current, previous /*null when async*/) {
+
+    // Get the number of the record being deleted
+    var deletedNumber = parseInt(current.number);
+    
+    if (!isNaN(deletedNumber)) {
+        var sequenceManager = new x_2025153_windsu_0.SequenceManager();
+        
+        // Reorder sequence to fill the gap
+        sequenceManager.reorderOnDelete(
+            current.getTableName(),
+            'number',
+            deletedNumber
+        );
+    }
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_business_rule</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-04-28 08:15:00</sys_created_on>
+        <sys_id>sequence_delete_id</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Sequence Adjustment on Delete</sys_name>
+        <sys_package display_value="windsur_servicenow" source="x_2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="windsur_servicenow">743b667c47a84b10e454a3bf016d43ff</sys_scope>
+        <sys_update_name>sys_business_rule_sequence_delete.xml</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-04-28 08:15:00</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_business_rule>
+</record_update>

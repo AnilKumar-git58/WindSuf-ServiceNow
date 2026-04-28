@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_business_rule action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>true</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_2025153_windsu_0_git_windsurf</collection>
+        <condition>current.number.changes()</condition>
+        <description>Adjust sequence numbers when a record's number field is updated</description>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Sequence Adjustment on Update</name>
+        <order>200</order>
+        <priority>100</priority>
+        <query_condition/>
+        <run_when>after</run_when>
+        <script><![CDATA[// Reorder sequence numbers on update
+(function executeRule(current, previous) {
+
+    // Only proceed if number field has changed
+    if (current.number !== previous.number) {
+        var sequenceManager = new x_2025153_windsu_0.SequenceManager();
+        var newNumber = parseInt(current.number);
+        var oldNumber = parseInt(previous.number);
+        
+        // Reorder sequence to maintain consistency
+        sequenceManager.reorderOnUpdate(
+            current.getTableName(),
+            'number',
+            current.getValue('sys_id'),
+            newNumber,
+            oldNumber
+        );
+    }
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_business_rule</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-04-28 08:10:00</sys_created_on>
+        <sys_id>sequence_update_id</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Sequence Adjustment on Update</sys_name>
+        <sys_package display_value="windsur_servicenow" source="x_2025153_windsu_0">743b667c47a84b10e454a3bf016d43ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="windsur_servicenow">743b667c47a84b10e454a3bf016d43ff</sys_scope>
+        <sys_update_name>sys_business_rule_sequence_update.xml</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-04-28 08:10:00</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_business_rule>
+</record_update>
